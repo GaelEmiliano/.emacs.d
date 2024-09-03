@@ -7,42 +7,6 @@
 ;; Muestra la barra de desplazamiento
 (scroll-bar-mode t)
 
-;; Añadimos las líneas a la izquierda
-(global-display-line-numbers-mode 1)
-;; Usa números de línea relativos
-(setq display-line-numbers-type 'relative)
-
-;; Cambia el tipo de letra a "Dejavu Sans Mono 11"
-(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
-
-;; Movernos al siguiente buffer
-(global-set-key (kbd "C-x C-?") 'next-buffer)
-;; Movernos al buffer anterior
-(global-set-key (kbd "C-x C-p") 'previous-buffer)
-;; Cambiar entre buffers
-(global-set-key (kbd "C-x C-o") 'other-window-backward)
-;; Agrega un comentario, lo quita, o lo añade al final
-(global-set-key (kbd "C-x ,") 'comment-dwim)
-;; Cambia al buffer seleccionado
-(global-set-key (kbd "C-x b") 'counsel-switch-buffer)
-;; Comenta una línea
-(global-set-key (kbd "C-c C-c") 'comment-line)
-;; Comenta una región
-(global-set-key (kbd "C-c C-r") 'comment-or-uncomment-region)
-;; Duplica una línea de código actual
-(global-set-key (kbd "C-c d") 'duplicate-line)
-
-;; Función que duplica línea de código actual
-(defun duplicate-line()
-  "Duplicate current line"
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank))
-
 ;; Configuración de repositorios de paquetes
 ;; Package management
 (require 'package)
@@ -51,14 +15,75 @@
 	("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (package-refresh-contents)
+
 ;; Actualiza la lista de paquetes si no está ya disponible
 (unless package-archive-contents
   (package-refresh-contents))
+
 ;; Instala si no está ya instalado
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; Dracula Theme
+(use-package dracula-theme
+  :ensure t
+  :init
+  (setq dracula-theme t)
+  (load-theme 'dracula t))
+
+;; Añadimos las líneas a la izquierda
+(global-display-line-numbers-mode 1)
+;; Usa números de línea relativos
+(setq display-line-numbers-type 'relative)
+
+;; Cambia el tipo de letra a "Dejavu Sans Mono 11"
+(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
+
+;; Autocompletar paréntesis
+(electric-pair-mode 1)
+
+;; Habilita cambiar de ventana usando Shift + flechas
+(windmove-default-keybindings)
+
+;; Guarda el estado de las ventanas
+(desktop-save-mode 1)
+
+;; Da el historial de comandos
+(recentf-mode 1)
+;; Guarda los últimos 25 archivos abiertos
+(setq recentf-max-menu-items 25)
+
+;; No crea archivos de respaldo
+(setq make-backup-files nil)
+
+;; No crea archivos de autoguardado
+(setq auto-save-default nil)
+
+;; Utiliza una señal visual para la campana
+;; en lugar de un sonido
+(setq visible-bell t)
+
+;; Usa espacios en lugar de tabs para la indentación
+(setq-default indent-tabs-mode nil)
+
+;; Desactiva el registro de mensajes en el buffer *Messages*
+(setq-default message-log-max nil)
+;; Cierra o mata el buffer *Messages* si está abierto
+(kill-buffer "*Messages*")
+
+;; Habilita la visualización de la línea actual resaltada en
+;; todos los buffers
+(global-hl-line-mode 1)
+
+(custom-set-variables
+ '(inhibit-startup-screen t)
+ '(package-selected-packages '(rego-mode dracula-theme haskell-mode use-package)))
+
+(custom-set-faces
+ '(hl-line ((t (:background "#483d8b")))))
+(put 'set-goal-column 'disabled nil)
 
 ;; Indentacion de C y C++
 (defun my-c-mode-hook()
@@ -137,13 +162,6 @@
 ;; Racket-mode
 (use-package racket-mode)
 
-;; Un tema oscuro (muy famoso)
-(use-package dracula-theme
-  :ensure t
-  :init
-  (setq dracula-theme t)
-  (load-theme 'dracula t))
-
 ;; Mejora la navegación con ivy
 (use-package ivy
   :ensure t
@@ -159,54 +177,30 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c k" . counsel-rg)))
 
-;; Autocompletar paréntesis
-(electric-pair-mode 1)
+;; Movernos al siguiente buffer
+(global-set-key (kbd "C-x C-?") 'next-buffer)
+;; Movernos al buffer anterior
+(global-set-key (kbd "C-x C-p") 'previous-buffer)
+;; Cambiar entre buffers
+(global-set-key (kbd "C-x C-o") 'other-window-backward)
+;; Agrega un comentario, lo quita, o lo añade al final
+(global-set-key (kbd "C-x ,") 'comment-dwim)
+;; Cambia al buffer seleccionado
+(global-set-key (kbd "C-x b") 'counsel-switch-buffer)
+;; Comenta una línea
+(global-set-key (kbd "C-c C-c") 'comment-line)
+;; Comenta una región
+(global-set-key (kbd "C-c C-r") 'comment-or-uncomment-region)
+;; Duplica una línea de código actual
+(global-set-key (kbd "C-c d") 'duplicate-line)
 
-;; Habilita cambiar de ventana usando Shift + flechas
-(windmove-default-keybindings)
-
-;; Guarda el estado de las ventanas
-(desktop-save-mode 1)
-
-;; Da el historial de comandos
-(recentf-mode 1)
-;; Guarda los últimos 25 archivos abiertos
-(setq recentf-max-menu-items 25)
-
-;; No crear archivos de respaldo
-(setq make-backup-files nil)
-
-;; No crear archivos de autoguardado
-(setq auto-save-default nil)
-
-;; Utiliza una señal visual para la campana
-;; en lugar de un sonido
-(setq visible-bell t)
-
-;; Usa espacios en lugar de tabs para la indentación
-(setq-default indent-tabs-mode nil)
-
-;; Desactiva el registro de mensajes en el buffer *Messages*
-(setq-default message-log-max nil)
-;; Cierra o mata el buffer *Messages* si está abierto
-(kill-buffer "*Messages*")
-
-;; Habilita la visualización de la línea actual resaltada en
-;; todos los buffers
-(global-hl-line-mode 1)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t)
- '(package-selected-packages '(rego-mode dracula-theme haskell-mode use-package)))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hl-line ((t (:background "#483d8b")))))
-(put 'set-goal-column 'disabled nil)
+;; Función que duplica línea de código actual
+(defun duplicate-line()
+  "Duplicate current line"
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
