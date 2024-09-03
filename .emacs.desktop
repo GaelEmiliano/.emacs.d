@@ -2,19 +2,19 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Tue Sep  3 00:17:27 2024
+;; Created Tue Sep  3 00:39:38 2024
 ;; Desktop file format version 208
 ;; Emacs version 28.2
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (26326 43511 896673 942000) (desktop . "208") "gael@Baldor" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font . "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (font-parameter . "DejaVu Sans Mono-11") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars . right) (horizontal-scroll-bars) (foreground-color . "#f8f8f2") (background-color . "#282a36") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground . "white") (scroll-bar-background) (menu-bar-lines . 0) (tab-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (no-focus-on-map) (no-accept-focus) (fullscreen . fullheight) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#ccccc7") (sticky) (environment) (last-focus-update . t) (frameset--id . "4D1D-D718-0480-666D") (frameset--mini t . t) (modeline . t) (unsplittable) (icon-name) (display . ":0") (explicit-name) (user-size . t) (height . 59) (width . 116) (left . 950) (top . 24)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 6) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 68) (min-pixel-width . 80) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 48) (min-pixel-height-safe . 17) (min-pixel-width-safe . 16)) leaf (pixel-width . 960) (pixel-height . 994) (total-width . 120) (total-height . 58) (normal-height . 1.0) (normal-width . 1.0) (buffer "init.el" (selected . t) (hscroll . 0) (fringes 8 8 nil nil) (margins nil) (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 715) (start . 1)) (prev-buffers (".gitignore" 1 3) (".emacs.d" 1 544) ("init.el" 1 1099) ("*scratch*" 1 1))))])
+(setq desktop-saved-frameset [frameset 1 (26326 44842 94523 338000) (desktop . "208") "gael@Baldor" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font . "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (font-parameter . "DejaVu Sans Mono-11") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars . right) (horizontal-scroll-bars) (foreground-color . "#f8f8f2") (background-color . "#282a36") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground . "white") (scroll-bar-background) (menu-bar-lines . 0) (tab-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (no-focus-on-map) (no-accept-focus) (fullscreen . fullheight) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#ccccc7") (sticky) (environment) (last-focus-update . t) (frameset--id . "4D1D-D718-0480-666D") (frameset--mini t . t) (modeline . t) (unsplittable) (icon-name) (display . ":0") (explicit-name) (user-size . t) (height . 59) (width . 116) (left . 950) (top . 24)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 6) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 68) (min-pixel-width . 80) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 48) (min-pixel-height-safe . 17) (min-pixel-width-safe . 16)) leaf (pixel-width . 960) (pixel-height . 994) (total-width . 120) (total-height . 58) (normal-height . 1.0) (normal-width . 1.0) (buffer "init.el" (selected . t) (hscroll . 0) (fringes 8 8 nil nil) (margins nil) (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 1331) (start . 716)) (prev-buffers ("gael" 1568 2592) ("home" 1 195) ("/" 1 462) ("client.c" 1 641) (".emacs.d" 1 544) (".gitignore" 1 3) ("init.el" 1 715) ("Unam" 1 205) ("cc" 1 205) ("edd" 1 173) ("workspace" 1 262) ("icc<workspace>" 1 272) ("practica2" 1 493) ("src" 1 233) ("main" 1 238) ("java" 1 243) ("mx" 1 246) ("unam" 1 251) ("ciencias" 1 260) ("icc<ciencias>" 1 327) ("ListaEstudiante.java" 1 845) ("*scratch*" 1 1))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
 (setq search-ring nil)
 (setq regexp-search-ring nil)
 (setq register-alist nil)
-(setq file-name-history '("~/.emacs.d/init.el" "~/.emacs.d/.gitignore" #("/home/gael/.emacs.d/.#.gitignore" 0 32 (ivy-index 0)) #("/home/gael/.emacs.d/init.el" 0 27 (ivy-index 0)) #("/home/gael/.emacs.d/.gitignore" 0 30 (ivy-index 0)) "~/.emacs.d/session.10db6258c3fe45e3c316930948747103500000017600086" "~/.emacs.d/init.el"))
+(setq file-name-history '(#("/home/gael/.emacs.d/init.el" 0 27 (ivy-index 0)) #("/" 0 1 (ivy-index 0)) "~/myp3/client.c" "~/init.el" #("/home/gael/Unam/" 0 16 (ivy-index 0)) "~/.emacs.d/init.el" "~/.emacs.d/.gitignore" #("/home/gael/.emacs.d/.#.gitignore" 0 32 (ivy-index 0)) #("/home/gael/.emacs.d/.gitignore" 0 30 (ivy-index 0)) "~/.emacs.d/session.10db6258c3fe45e3c316930948747103500000017600086" "~/.emacs.d/init.el"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 208
@@ -22,12 +22,228 @@
   "init.el"
   'emacs-lisp-mode
   '(eldoc-mode override-global-mode company-mode ivy-mode yas-minor-mode)
-  715
-  '(832 nil)
+  1331
+  '(1299 nil)
   nil
   nil
-  '((buffer-display-time 26326 43491 42582 872000) (buffer-file-coding-system . utf-8-unix))
-  '((mark-ring (109 832 1883 1883 832 1 832 4295 2018 4295 4295 1101 4295 4295 4295 715))))
+  '((buffer-display-time 26326 44788 596850 659000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring (832 109 832 1886 1886 832 1 832 4298 2021 4298 4298 1101 4298 4298 1331))))
+
+(desktop-create-buffer 208
+  nil
+  "gael"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  2592
+  '(nil nil)
+  t
+  '("/home/gael/")
+  '((buffer-display-time 26326 44783 271537 48000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "home"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  195
+  '(nil nil)
+  t
+  '("/home/")
+  '((buffer-display-time 26326 44774 647604 553000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "/"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  462
+  '(nil nil)
+  t
+  '("/")
+  '((buffer-display-time 26326 44765 127475 895000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/gael/myp3/client.c"
+  "client.c"
+  'c-mode
+  '(abbrev-mode override-global-mode company-mode ivy-mode)
+  641
+  '(398 nil)
+  nil
+  nil
+  '((tab-width . 4) (indent-tabs-mode) (buffer-display-time 26326 44752 259079 401000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (510))))
+
+(desktop-create-buffer 208
+  "/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/mx/unam/ciencias/icc/ListaEstudiante.java"
+  "ListaEstudiante.java"
+  'java-mode
+  '(abbrev-mode override-global-mode company-mode ivy-mode)
+  845
+  '(295 nil)
+  nil
+  nil
+  '((tab-width . 4) (indent-tabs-mode) (buffer-display-time 26326 44671 71755 523000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring (397 637 1053 845 1054 845))))
+
+(desktop-create-buffer 208
+  nil
+  "icc"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  327
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/mx/unam/ciencias/icc/")
+  '((buffer-display-time 26326 44410 229196 73000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "ciencias"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  260
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/mx/unam/ciencias/")
+  '((buffer-display-time 26326 44410 72153 945000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "unam"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  251
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/mx/unam/")
+  '((buffer-display-time 26326 44409 929270 151000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "mx"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  246
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/mx/")
+  '((buffer-display-time 26326 44409 824090 692000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "java"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  243
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/java/")
+  '((buffer-display-time 26326 44409 606865 735000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "main"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  238
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/main/")
+  '((buffer-display-time 26326 44409 223119 938000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "src"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  233
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/src/")
+  '((buffer-display-time 26326 44406 707660 328000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "practica2"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  493
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/practica2/")
+  '((buffer-display-time 26326 44404 840472 443000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "icc"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  272
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/icc/")
+  '((buffer-display-time 26326 44403 144338 616000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "workspace"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  262
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/")
+  '((buffer-display-time 26326 44402 219457 776000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "edd"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  173
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/workspace/edd/")
+  '((buffer-display-time 26326 44396 732638 879000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "cc"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  205
+  '(nil nil)
+  t
+  '("/home/gael/Unam/cc/")
+  '((buffer-display-time 26326 44396 209871 859000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "Unam"
+  'dired-mode
+  '(override-global-mode company-mode ivy-mode)
+  205
+  '(nil nil)
+  t
+  '("/home/gael/Unam/")
+  '((buffer-display-time 26326 44394 950905 231000))
+  '((mark-ring nil)))
 
 (desktop-create-buffer 208
   "/home/gael/.emacs.d/.gitignore"
@@ -38,7 +254,7 @@
   '(50 nil)
   nil
   nil
-  '((buffer-display-time 26326 42539 358095 666000) (buffer-file-coding-system . utf-8-unix))
+  '((buffer-display-time 26326 43409 304245 946000) (buffer-file-coding-system . utf-8-unix))
   '((mark-ring (51))))
 
 (desktop-create-buffer 208
@@ -50,6 +266,6 @@
   '(nil nil)
   t
   '("/home/gael/.emacs.d/")
-  '((buffer-display-time 26326 43491 35155 829000))
+  '((buffer-display-time 26326 44740 814807 295000))
   '((mark-ring nil)))
 
