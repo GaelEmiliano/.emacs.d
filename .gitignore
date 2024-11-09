@@ -4,6 +4,10 @@
 .cask/
 elpa/
 auto-save-list/
+transient/
+url/
+eln-cache/
+elpa/
 recentf
 .emacs.desktop
 .emacs.desktop.lock
