@@ -89,6 +89,14 @@
 ;; Duplicate the current line
 (global-set-key (kbd "C-c d") 'duplicate-line)
 
+;; Change to Dracula theme
+(global-set-key (kbd "C-c t d") 'my/load-dracula)
+
+;; Change to Zenburn theme
+(global-set-key (kbd "C-c t z") 'my/load-zenburn)
+
+;; ---- FUNCTIONS ----
+
 ;; Switch between windows in reverse function definition
 (defun other-window-backward(&optional n)
   "Select Nth previous window"
@@ -117,6 +125,18 @@
   (open-line 1)
   (next-line 1)
   (yank))
+
+;; Load Dracula theme
+(defun my/load-dracula()
+  "Load Dracula theme"
+  (interactive)
+  (load-theme 'dracula t))
+
+;; Load Zenburn theme
+(defun my/load-zenburn()
+  "Load Zenburn theme"
+  (interactive)
+  (load-theme 'zenburn t))
 
 ;; ---------------------------------
 ;;  SOME PACKAGES
@@ -263,11 +283,8 @@
 ;;(load-theme 'tango-dark t)
 
 ;; Zenburn Theme
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :init
-;;   (setq zenburn-theme t)
-;;   (load-theme 'zenburn t))
+(use-package zenburn-theme
+  :ensure t)
 
 ;; Configuración de Markdown
 ;; C-c C-c p (markdown-preview) Como se ve renderizado
