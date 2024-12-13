@@ -121,6 +121,25 @@
 ;; Set font to "DejaVu Sans Mono, size 11"
 (set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
 
+;; Emulates ligatures
+(defun enable-simulated-ligatures ()
+  "Simulate ligatures"
+  (setq prettify-symbols-alist
+        '(("!=" . ?≠)    ;; Reeplaze "!=" for ≠
+          ("->" . ?→)    ;; Reeplaze "->" for →
+          ("<-" . ?←)    ;; Reeplaze "<-" for ←
+          ("<=" . ?≤)    ;; Reeplaze "<=" for ≤
+          (">=" . ?≥)    ;; Reeplaze ">=" for ≥
+          ("=>" . ?⇒)    ;; Reeplaze "=>" for ⇒
+          ("&&" . ?∧)    ;; Reeplaze "&&" for ∧
+          ("||" . ?∨)    ;; Reeplaze "||" for ∨
+          ("..." . ?…))) ;; Reeplaze "..." for …
+  (prettify-symbols-mode 1))
+
+(add-hook 'prog-mode-hook 'enable-simulated-ligatures)
+
+(global-prettify-symbols-mode 1)
+
 ;; --- Miscellaneous ---
 
 ;; Autocomplete parentheses
