@@ -13,6 +13,7 @@ var/
 ensime/
 history/
 eln-cache/
+cache/
 elpa/
 recentf
 tramp/

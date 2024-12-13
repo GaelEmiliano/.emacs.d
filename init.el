@@ -49,6 +49,31 @@
 ;; Show battery percentage
 (display-battery-mode 1)
 
+;; Habilita cambiar de ventana usando Shift + flechas
+(windmove-default-keybindings)
+
+;; No crea archivos de respaldo
+(setq make-backup-files nil)
+
+;; No crea archivos de autoguardado
+(setq auto-save-default nil)
+
+;; Utiliza una señal visual para la campana
+;; en lugar de un sonido
+(setq visible-bell t)
+
+;; Habilita modo de número de columna en la
+;; barra de estado
+(setq column-number-mode t)
+
+;; Usa espacios en lugar de tabs para la indentación
+(setq-default indent-tabs-mode nil)
+
+;; Desactiva el registro de mensajes en el buffer *Messages*
+(setq-default message-log-max nil)
+;; Cierra o mata el buffer *Messages* si está abierto
+(kill-buffer "*Messages*")
+
 ;; ---------------------------------
 ;; PACKAGE MANAGEMENT
 ;; ---------------------------------
@@ -95,6 +120,18 @@
 
 ;; Set font to "DejaVu Sans Mono, size 11"
 (set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
+
+;; --- Miscellaneous ---
+
+;; Autocomplete parentheses
+(electric-pair-mode 1)
+
+;; Show paren parentheses
+(show-paren-mode 1)
+
+;; Enables display of the current
+;; highlighted line in all buffers
+(global-hl-line-mode 1)
 
 ;; ---------------------------------
 ;; KEYBINDINGS AND FUNCTIONS
@@ -208,6 +245,10 @@
   :ensure t
   :init (yas-global-mode t))
 
+;; Some snippets
+(use-package yasnippet-snippets
+  :ensure t)
+
 ;; Autocompletado con company 
 (use-package company
   :ensure t
@@ -285,23 +326,20 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   (setq go-tab-width 4))
 
-;; Configuración de Rust
+;; Rust-mode
 (use-package rust-mode
   :ensure t
-  :mode "\\.rs\\'"
   :config
   (setq rust-format-on-save t))
 
 ;; C#-mode
 (use-package csharp-mode
   :ensure t
-  :mode "\\.cs\\'"
   :config
   (setq c-basic-offset 4))
 
 ;; Ruby-mode
 (use-package ruby-mode
-  :mode "\\.rb\\'"
   :interpreter "ruby"
   :config
   (setq ruby-indent-level 2))
@@ -309,14 +347,12 @@
 ;; Kotlin-mode
 (use-package kotlin-mode
   :ensure t
-  :mode "\\.kt\\'"
   :config
   (setq kotlin-tab-width 4))
 
 ;; Haskell-mode
 (use-package haskell-mode
   :ensure t
-  :mode "\\.hs\\'"
   :config
   (setq haskell-indentation-layout-offset 4)
   (setq haskell-indentation-starter-offset 4))
@@ -340,7 +376,6 @@
 ;; Racket-mode
 (use-package racket-mode
   :ensure t
-  :mode "\\.rkt\\'"
   :config
   (setq racket-indent-offset 2))
 
@@ -397,41 +432,6 @@
 ;; Ayuda para recomendar combinaciones de teclas
 (use-package which-key
   :config (which-key-mode))
-
-;; Autocompletar paréntesis
-(electric-pair-mode 1)
-
-;; Mostrar paréntesis coincidentes
-(show-paren-mode 1)
-
-;; Habilita la visualización de la línea actual resaltada en
-;; todos los buffers
-(global-hl-line-mode 1)
-
-;; Habilita cambiar de ventana usando Shift + flechas
-(windmove-default-keybindings)
-
-;; No crea archivos de respaldo
-(setq make-backup-files nil)
-
-;; No crea archivos de autoguardado
-(setq auto-save-default nil)
-
-;; Utiliza una señal visual para la campana
-;; en lugar de un sonido
-(setq visible-bell t)
-
-;; Habilita modo de número de columna en la
-;; barra de estado
-(setq column-number-mode t)
-
-;; Usa espacios en lugar de tabs para la indentación
-(setq-default indent-tabs-mode nil)
-
-;; Desactiva el registro de mensajes en el buffer *Messages*
-(setq-default message-log-max nil)
-;; Cierra o mata el buffer *Messages* si está abierto
-(kill-buffer "*Messages*")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
