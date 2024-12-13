@@ -3,6 +3,10 @@
 ;; This is the main configuration file for Emacs (init.el) where
 ;; packages are loaded and personal preferences are defined.
 
+;------------------------------------;
+;  Gael Emiliano Arreguín Salgado    ;
+;------------------------------------;
+
 ;;; Code:
 
 ;; ---------------------------------
@@ -15,11 +19,20 @@
 ;; Disable the menu bar
 (menu-bar-mode -1)
 
+;; Disable tooltip
+(tooltip-mode -1)
+
 ;; Disable the tool bar
 (tool-bar-mode -1)
 
 ;; Disable the scroll bar
 (scroll-bar-mode -1)
+
+;; Activate full screen
+;;(toggle-frame-fullscreen)
+
+;; Disable margins
+;;(set-window-fringes nil 0 0)
 
 ;; Show line numbers on the left side
 (global-display-line-numbers-mode 1)
@@ -27,8 +40,14 @@
 ;; Use relative line numbers for better navigation
 (setq display-line-numbers-type 'relative)
 
-;; Set font to "DejaVu Sans Mono, size 11"
-(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
+;; Time and date
+(setq display-time-day-and-date 1)
+
+;; Show the time
+(display-time-mode 1)
+
+;; Show battery percentage
+(display-battery-mode 1)
 
 ;; ---------------------------------
 ;; PACKAGE MANAGEMENT
@@ -51,6 +70,31 @@
 ;; Always ensure use-package installs missings packages
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; ---------------------------------
+;; APPEARANCE
+;; ---------------------------------
+
+;; --- Cursor ---
+(setq-default cursor-type 'bar)
+
+;; --- Themes ---
+
+;; Dracula Theme
+(use-package dracula-theme
+  :ensure t
+  :init
+  (setq dracula-theme t)
+  (load-theme 'dracula t))
+
+;; Zenburn Theme
+(use-package zenburn-theme
+  :ensure t)
+
+;; --- Font ---
+
+;; Set font to "DejaVu Sans Mono, size 11"
+(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
 
 ;; ---------------------------------
 ;; KEYBINDINGS AND FUNCTIONS
@@ -139,18 +183,38 @@
   (load-theme 'zenburn t))
 
 ;; ---------------------------------
-;;  SOME PACKAGES
+;;  PACKAGES
 ;; ---------------------------------
 
+;; Moody
+(use-package moody
+  :ensure t
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
+;; Minions
+(use-package minions
+  :ensure t
+  :config (minions-mode 1))
+
 ;; Magit
-;;(use-package magit)
+;;(use-package magit
+  ;;:ensure t)
+
+;; Yasnippets: shortcuts to complete
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode t))
 
 ;; Autocompletado con company 
 (use-package company
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
-  (add-to-list 'company-backends 'company-clang))
+  (add-to-list 'company-backends 'company-clang)
+  :bind ("C-<tab>" . company-yasnippet))
 
 ;; Mejora la navegación con ivy
 (use-package ivy
@@ -166,6 +230,20 @@
   :bind (("M-x" . counsel-M-x)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c k" . counsel-rg)))
+
+;; Golden ratio
+(use-package golden-ratio
+  :ensure t
+  :config (golden-ratio-mode t))
+
+;; All the icons
+(use-package all-the-icons
+  :ensure t)
+
+;; File explorer
+(use-package neotree
+  :ensure t
+  :bind ("C-x n" . neotree-toggle))
 
 ;; Aplica company-mode para código en C y C++
 (use-package cc-mode
@@ -244,7 +322,20 @@
   (setq haskell-indentation-starter-offset 4))
 
 ;; Php-mode
-(use-package php-mode)
+(use-package php-mode
+  :ensure t)
+
+;; Elixir-mode
+(use-package elixir-mode
+  :ensure t)
+
+;; Lua-mode
+(use-package lua-mode
+  :ensure t)
+
+;; Cuda-mode
+(use-package cuda-mode
+  :ensure t)
 
 ;; Racket-mode
 (use-package racket-mode
@@ -267,24 +358,6 @@
 ;;(use-package flycheck
 ;;  :ensure t
 ;;  :init (global-flycheck-mode 1))
-
-;;(use-package yasnippet
-;;  :ensure t
-;;  :init (yas-global-mode 1))
-
-;; Dracula Theme
-(use-package dracula-theme
-  :ensure t
-  :init
-  (setq dracula-theme t)
-  (load-theme 'dracula t))
-
-;; Tango Dark
-;;(load-theme 'tango-dark t)
-
-;; Zenburn Theme
-(use-package zenburn-theme
-  :ensure t)
 
 ;; Configuración de Markdown
 ;; C-c C-c p (markdown-preview) Como se ve renderizado
