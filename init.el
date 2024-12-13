@@ -46,7 +46,7 @@
 ;; Show the time
 (display-time-mode 1)
 
-;; Show battery percentage
+;; Shows the battery
 (display-battery-mode 1)
 
 ;; Habilita cambiar de ventana usando Shift + flechas
@@ -132,6 +132,12 @@
 ;; Enables display of the current
 ;; highlighted line in all buffers
 (global-hl-line-mode 1)
+
+(setq window-divider-default-right-width 3)
+
+(setq window-divider-default-places 'right-only)
+
+(window-divider-mode 1)
 
 ;; ---------------------------------
 ;; KEYBINDINGS AND FUNCTIONS
@@ -254,8 +260,7 @@
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
-  (add-to-list 'company-backends 'company-clang)
-  :bind ("C-<tab>" . company-yasnippet))
+  (add-to-list 'company-backends 'company-clang))
 
 ;; Mejora la navegación con ivy
 (use-package ivy
