@@ -119,26 +119,21 @@
 ;; --- Font ---
 
 ;; Set font to "DejaVu Sans Mono, size 11"
-(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
+;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
 
-;; Emulates ligatures
-(defun enable-simulated-ligatures ()
-  "Simulate ligatures"
-  (setq prettify-symbols-alist
-        '(("!=" . ?≠)    ;; Reeplaze "!=" for ≠
-          ("->" . ?→)    ;; Reeplaze "->" for →
-          ("<-" . ?←)    ;; Reeplaze "<-" for ←
-          ("<=" . ?≤)    ;; Reeplaze "<=" for ≤
-          (">=" . ?≥)    ;; Reeplaze ">=" for ≥
-          ("=>" . ?⇒)    ;; Reeplaze "=>" for ⇒
-          ("&&" . ?∧)    ;; Reeplaze "&&" for ∧
-          ("||" . ?∨)    ;; Reeplaze "||" for ∨
-          ("..." . ?…))) ;; Reeplaze "..." for …
-  (prettify-symbols-mode 1))
+;; Set font to "JetBrains Mono, size 11"
+(set-face-attribute 'default nil
+                    :font "JetBrains Mono"
+                    :height 110) ; 110 = 11pt
 
-(add-hook 'prog-mode-hook 'enable-simulated-ligatures)
-
-(global-prettify-symbols-mode 1)
+;; Activate ligatures
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode
+                          '("->" "<-" "=>" "<=" ">=" "!="
+                            "==" "===" "&&" "||" "::"))
+  (global-ligature-mode t))
 
 ;; --- Miscellaneous ---
 
@@ -266,13 +261,13 @@
   ;;:ensure t)
 
 ;; Yasnippets: shortcuts to complete
-(use-package yasnippet
-  :ensure t
-  :init (yas-global-mode t))
+;; (use-package yasnippet
+;;   :ensure t
+;;   :init (yas-global-mode t))
 
-;; Some snippets
-(use-package yasnippet-snippets
-  :ensure t)
+;; ;; Some snippets
+;; (use-package yasnippet-snippets
+;;   :ensure t)
 
 ;; Autocompletado con company 
 (use-package company

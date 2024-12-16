@@ -3,6 +3,7 @@
 \#*\#
 .#*
 .cask/
+.cache/
 elpa/
 auto-save-list/
 backups/
