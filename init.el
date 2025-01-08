@@ -15,6 +15,8 @@
 
 ;; Disable the startup screen
 (setq inhibit-startup-screen t)
+(setq inhibit-splash-screen t)
+(setq initial-buffer-choice t)
 
 ;; Disable the menu bar
 (menu-bar-mode -1)
@@ -101,9 +103,17 @@
 ;; ---------------------------------
 
 ;; --- Cursor ---
-(setq-default cursor-type 'bar)
+;; (setq-default cursor-type 'bar)
 
 ;; --- Themes ---
+
+
+;; Catppuccin-theme
+;; (use-package catppuccin-theme
+;;   :ensure t)
+
+;; (setq catppuccin-flavor 'macchiato)
+;; (load-theme 'catppuccin t)
 
 ;; Dracula Theme
 (use-package dracula-theme
@@ -119,21 +129,21 @@
 ;; --- Font ---
 
 ;; Set font to "DejaVu Sans Mono, size 11"
-;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
+(set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
 
 ;; Set font to "JetBrains Mono, size 11"
-(set-face-attribute 'default nil
-                    :font "JetBrains Mono"
-                    :height 110) ; 110 = 11pt
+;; (set-face-attribute 'default nil
+;;                    :font "JetBrains Mono"
+;;                    :height 110) ; 110 = 11pt
 
 ;; Activate ligatures
-(use-package ligature
-  :ensure t
-  :config
-  (ligature-set-ligatures 'prog-mode
-                          '("->" "<-" "=>" "<=" ">=" "!="
-                            "==" "===" "&&" "||" "::"))
-  (global-ligature-mode t))
+;; (use-package ligature
+;;   :ensure t
+;;   :config
+;;   (ligature-set-ligatures 'prog-mode
+;;                           '("->" "<-" "=>" "<=" ">=" "!="
+;;                             "==" "===" "&&" "||" "::"))
+;;   (global-ligature-mode t))
 
 ;; --- Miscellaneous ---
 
@@ -257,8 +267,8 @@
   :config (minions-mode 1))
 
 ;; Magit
-;;(use-package magit
-  ;;:ensure t)
+;; (use-package magit
+;;   :ensure t)
 
 ;; Yasnippets: shortcuts to complete
 ;; (use-package yasnippet
@@ -402,8 +412,7 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook ((go-mode . lsp-deferred)
-         (rust-mode . lsp-deferred)))
+  :hook ((go-mode . lsp-deferred)))
 
 (use-package lsp-ui
   :ensure t
@@ -445,8 +454,8 @@
   (setq cmake-tab-width 4)) ;; Indentación
 
 ;; Colorea qué paréntesis cierra con cuál
- ;;(use-package rainbow-delimiters
-   ;;:hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Ayuda para recomendar combinaciones de teclas
 (use-package which-key
@@ -458,16 +467,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cmake-mode rego-mode dracula-theme haskell-mode use-package)))
+   '(vdiff-magit cmake-mode rego-mode dracula-theme haskell-mode use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(line-number ((t (:foreground "#6c757d"))))
- '(line-number-current-line ((t (:background "#3a3c4e" :foreground "#ffffff" :weight bold))))
- '(show-paren-match ((t (:background "#44475a" :foreground "cyan" :weight bold))))
- '(show-paren-mismatch ((t (:background "#44475a" :foreground "orange" :weight bold)))))
+ )
 
 ;;; init.el ends here
