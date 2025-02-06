@@ -15,8 +15,6 @@
 
 ;; Disable the startup screen
 (setq inhibit-startup-screen t)
-(setq inhibit-splash-screen t)
-(setq initial-buffer-choice t)
 
 ;; Disable the menu bar
 (menu-bar-mode -1)
@@ -107,7 +105,6 @@
 
 ;; --- Themes ---
 
-
 ;; Catppuccin-theme
 ;; (use-package catppuccin-theme
 ;;   :ensure t)
@@ -126,24 +123,14 @@
 (use-package zenburn-theme
   :ensure t)
 
+;;
+(set-frame-parameter (selected-frame) 'alpha '(93 . 93))
+(add-to-list 'default-frame-alist '(alpha 93 93))
+
 ;; --- Font ---
 
 ;; Set font to "DejaVu Sans Mono, size 11"
 (set-face-attribute 'default nil :font "DejaVu Sans Mono-11")
-
-;; Set font to "JetBrains Mono, size 11"
-;; (set-face-attribute 'default nil
-;;                    :font "JetBrains Mono"
-;;                    :height 110) ; 110 = 11pt
-
-;; Activate ligatures
-;; (use-package ligature
-;;   :ensure t
-;;   :config
-;;   (ligature-set-ligatures 'prog-mode
-;;                           '("->" "<-" "=>" "<=" ">=" "!="
-;;                             "==" "===" "&&" "||" "::"))
-;;   (global-ligature-mode t))
 
 ;; --- Miscellaneous ---
 
@@ -474,6 +461,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(line-number ((t (:foreground "#6c757d"))))
+ '(line-number-current-line ((t (:background "#3a3c4e" :foreground "#ffffff" :weight bold)))))
 
 ;;; init.el ends here
