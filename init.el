@@ -123,9 +123,9 @@
 (use-package zenburn-theme
   :ensure t)
 
-;;
-(set-frame-parameter (selected-frame) 'alpha '(93 . 93))
-(add-to-list 'default-frame-alist '(alpha 93 93))
+;; Transparency
+(set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
 
 ;; --- Font ---
 
@@ -368,10 +368,7 @@
 
 ;; Haskell-mode
 (use-package haskell-mode
-  :ensure t
-  :config
-  (setq haskell-indentation-layout-offset 4)
-  (setq haskell-indentation-starter-offset 4))
+  :ensure t)
 
 ;; Php-mode
 (use-package php-mode
