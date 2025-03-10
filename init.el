@@ -253,10 +253,6 @@
   :ensure t
   :config (minions-mode 1))
 
-;; Magit
-;; (use-package magit
-;;   :ensure t)
-
 ;; Yasnippets: shortcuts to complete
 ;; (use-package yasnippet
 ;;   :ensure t
