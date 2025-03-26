@@ -1,0 +1,2 @@
+* GNU EMACS CONFIG
+** Personal Emacs Configuration

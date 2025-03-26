@@ -1,0 +1,17 @@
+# Aliases for emacs commands
+alias ff find-file $1
+
+# Aliasing standard shell commands to better emacs alternatives
+alias less view-file $1
+
+# Changing "ls" to "exa"
+alias ls eza -al --color=always --group-directories-first $*  # my preferred listing
+alias la eza -a --color=always --group-directories-first $*   # all files and dirs
+alias ll eza -l --color=always --group-directories-first $*   # long format
+alias lt eza -aT --color=always --group-directories-first $*  # tree listing
+alias l. eza -a1 $* | grep "^\."                              # list hidden files
+
+# Confirm before overwriting something
+alias cp cp -i $1
+alias mv mv -i $1
+alias rm rm -i $1
