@@ -1,10 +1,8 @@
 ls -la
 ls -la
 pwd
-clear
 *ls
 *ls -la
-clear
 ls -la
 ls
 ls -la
@@ -13,8 +11,17 @@ ls -la
 *ls -la
 *cat early-init.el
 ls 
-clear 
 *ls
-clear 
 *clear
 clear 
+*cmake --version
+*sudo apt install libtool-bin
+*ps 
+ls -la
+*ls -la
+clear
+ls -la
+*ls -la
+*ps
+clear 
+ls 

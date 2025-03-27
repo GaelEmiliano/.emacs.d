@@ -5,6 +5,7 @@
 .cask/
 .cache/
 .session
+sessions
 session.*
 elpaca/
 auto-save-list/
