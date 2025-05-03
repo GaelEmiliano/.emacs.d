@@ -4,13 +4,8 @@
 (require 'buffer-move)   ;; Buffer-move for better window management
 (require 'app-launchers) ;; Use emacs as a run launcher like dmenu (experimental)
 
-;(use-package all-the-icons
-;  :ensure t
-;  :if (display-graphic-p))
-
-;; I'm going to use nerd-icons instead...
-;(use-package all-the-icons-dired
-;  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+(use-package all-the-icons
+  :defer t)
 
 (use-package nerd-icons)
 
@@ -23,8 +18,26 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+(use-package centaur-tabs
+  :demand
+  :custom
+  (centaur-tabs-headline-match)
+  (centaur-tabs-style "wave")
+  (centaur-tabs-height 30)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-icon-type 'nerd-icons)
+  (centaur-tabs-set-bar 'left)
+  :config
+  (centaur-tabs-mode t)
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (dired-mode . centaur-tabs-local-mode)
+  (vterm-mode . centaur-tabs-local-mode)
+  :bind
+  ("C-s-<tab>" . centaur-tabs-backward)
+  ("C-<tab>" . centaur-tabs-forward))
+
 (delete-selection-mode 1)   ;; You can select text and delete it by typing
-(windmove-default-keybindings)  ;; Move through windows with Shift + arrows 
 (electric-pair-mode 1)      ;; Turns on automatic parens pairing
 (show-paren-mode 1)         ;; Show the parens with colors 
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
@@ -50,21 +63,26 @@
   (global-company-mode t))
 
 (use-package company-box
+  :defer t
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
 
 (use-package dashboard
-  :ensure t 
+  :defer t
   :init
-  (setq initial-buffer-choice 'dashboard-open)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-banner-logo-title "Evil Emacs User")
-  ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "/home/gael/.emacs.d/images/emacs-dash.png")  ;; use custom image as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
-  (setq dashboard-items '((recents . 5)
+  (setq initial-buffer-choice 'dashboard-open
+        dashboard-display-icons-p t      ;; display icons on both GUI and terminal
+        dashboard-icon-type 'nerd-icons  ;; use `nerd-icons' package
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-banner-logo-title "An extensible, customizable, free text editor\n  Beyond text editing - Emacs does it all."
+     ;   dashboard-startup-banner 'logo ;; use standard emacs logo as banner
+        dashboard-startup-banner "/home/gael/.emacs.d/images/emacs-dash.png"  ;; use custom image as banner
+        dashboard-center-content nil ;; set to 't' for centered content
+        dashboard-set-item-separator t
+        dashboard-item-separator "\f"
+        dashboard-items '((recents . 5)
                           (agenda . 5 )
                           (bookmarks . 3)
                           (projects . 3)
@@ -78,6 +96,7 @@
 (use-package diminish)
 
 (use-package dired-open
+  :defer t
   :config
   (setq dired-open-extensions '(("gif" . "sxiv")
                                 ("jpg" . "sxiv")
@@ -93,6 +112,21 @@
   (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
   (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
   (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+
+(use-package drag-stuff
+  :init
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
+
+(setq ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(defun ediff-hook ()
+  (ediff-setup-keymap)
+  (define-key ediff-mode-map "j" 'ediff-next-difference)
+  (define-key ediff-mode-map "k" 'ediff-previous-difference))
+
+(add-hook 'ediff-mode-hook 'ediff-hook)
 
 (use-package evil
   :init      ;; tweak evil's configuration before loading it
@@ -124,8 +158,11 @@
 ;; Setting RETURN key in org-mode to follow links
 (setq org-return-follows-link  t)
 
+(use-package focus
+  :defer t)
+
 (set-face-attribute 'default nil
-  :font "JetBrains Mono"
+  :font "JetBrainsMono Nerd Font"
   :height 110
   :weight 'medium)
 
@@ -135,7 +172,7 @@
   :weight 'bold)
 
 (set-face-attribute 'fixed-pitch nil
-  :font "JetBrains Mono"
+  :font "JetBrainsMono Nerd Font"
   :height 110
   :weight 'medium)
 
@@ -150,7 +187,7 @@
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 (setq-default line-spacing 0.12)
@@ -161,7 +198,6 @@
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 
 (use-package flycheck
-  :ensure t
   :defer t
   :diminish
   :init (global-flycheck-mode))
@@ -221,7 +257,7 @@
     "e s" '(eshell :which-key "Eshell"))
 
   (ge/leader-keys
-    "f" '(:ignore t :wk "Files")    
+    "f" '(:ignore t :wk "Files/Focus")    
     "f c" '((lambda () (interactive)
               (find-file "~/.emacs.d/config.org")) 
             :wk "Open emacs config.org")
@@ -229,6 +265,7 @@
               (dired "~/.emacs.d/")) 
             :wk "Open user-emacs-directory in dired")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
+    "f f" '(focus-mode :wk "Enable focus")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
     "f i" '((lambda () (interactive)
               (find-file "~/.emacs.d/init.el")) 
@@ -314,16 +351,35 @@
      "m d" '(:ignore t :wk "Date/deadline")
      "m d t" '(org-time-stamp :wk "Org time stamp"))
 
+   (ge/leader-keys
+     "o" '(:ignore t :wk "Open")
+     "o d" '(dashboard-open :wk "Dashboard")
+     "o f" '(make-frame :wk "Open buffer in new frame")
+     "o F" '(select-frame-by-name :wk "Select frame by name"))
+
    ;; projectile-command-map already has a ton of bindings 
    ;; set for us, so no need to specify each individually.
    (ge/leader-keys
      "p" '(projectile-command-map :wk "Projectile"))
 
    (ge/leader-keys
+     "r" '(:ignore t :wk "Golden ratio")
+     "r g" '(golden-ratio :wk "Call golden ratio"))
+
+   (ge/leader-keys
+     "s" '(:ignore t :wk "Search")
+     "s d" '(dictionary-search :wk "Search dictionary")
+     "s m" '(man :wk "Man pages")
+     "s o" '(pdf-occur :wk "Pdf search lines matching STRING")
+     "s t" '(tldr :wk "Lookup TLDR docs for a command")
+     "s w" '(woman :wk "Similar to man but doesn't require man"))
+
+   (ge/leader-keys
      "t" '(:ignore t :wk "Toggle")
      "t e" '(eshell-toggle :wk "Toggle eshell")
      "t f" '(flycheck-mode :wk "Toggle flycheck")
      "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+     "t m" '(minimap-mode :wk "Toggle minimap")
      "t n" '(neotree-toggle :wk "Toggle neotree file viewer")
      "t o" '(org-mode :wk "Toggle org mode")
      "t r" '(rainbow-mode :wk "Toggle rainbow mode")
@@ -347,7 +403,11 @@
      "w H" '(buf-move-left :wk "Buffer move left")
      "w J" '(buf-move-down :wk "Buffer move down")
      "w K" '(buf-move-up :wk "Buffer move up")
-     "w L" '(buf-move-right :wk "Buffer move right"))
+     "w L" '(buf-move-right :wk "Buffer move right")
+     ;; Words
+     "w d" '(downcase-word :wk "Downcase word")
+     "w u" '(upcase-word :wk "Upcase word")
+     "w =" '(count-words :wk "Count words/lines for buffer"))
 )
 
 (use-package git-timemachine
@@ -359,23 +419,19 @@
 
 ; (use-package magit)
 
-(setq column-number-mode t)  ;; Enable showing the column number
+(use-package golden-ratio
+  :defer t)
 
-(menu-bar-mode -1)    ;; Disable the menu bar 
-(tool-bar-mode -1)    ;; Disable the tool bar
-(scroll-bar-mode -1)  ;; Disable the scroll bar
-
-(global-display-line-numbers-mode 1) ;; Display line numbers
-(global-visual-line-mode t) ;; Enable truncated lines
-
-(display-time-mode 1)     ;; Displays the time
-(display-battery-mode 1)  ;; Displays the battery
-
-(global-hl-line-mode 1) ;; Enable showing a hl line
-
-(use-package page-break-lines
-  :config
-  (global-page-break-lines-mode))
+(use-package highlight-indent-guides
+  :diminish
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :custom
+  ;; Use a vertical bar character
+  (highlight-indent-guides-method 'character)
+  ;; Highlight the current level with greater intesity
+  (highlight-indent-guides-responsive 'top)
+  ;; Adjust the delay to avoid performance penalties
+  (highlight-indent-guides-delay 0.1))
 
 (use-package hl-todo
   :hook ((org-mode . hl-todo-mode)
@@ -410,20 +466,16 @@
   :config
   (ivy-mode))
 
-;; Using all-the-icons
-;(use-package all-the-icons-ivy-rich
-;  :ensure t
-;  :init (all-the-icons-ivy-rich-mode 1))
-
 ;; Using nerd-icons
 (use-package nerd-icons-ivy-rich
-  :ensure t
+  :defer t
   :init
   (nerd-icons-ivy-rich-mode 1)
   :custom
   (setq nerd-icons-ivy-rich-icon-size 5.0))
 
 (use-package ivy-rich
+  :defer t
   :after ivy
   :ensure t
   :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
@@ -435,39 +487,42 @@
   (ivy-set-display-transformer 'ivy-switch-buffer
                                'ivy-rich-switch-buffer-transformer))
 
-(use-package csharp-mode)
-(use-package dart-mode)
-;;(use-package elixir-mode)
-;;(use-package go-mode)
-(use-package haskell-mode)
-(use-package kotlin-mode)
-(use-package lua-mode)
-(use-package markdown-mode)
-(use-package php-mode)
-(use-package racket-mode)
-(use-package rust-mode)
-(use-package vala-mode)
+(dolist (m '(csharp-mode dart-mode haskell-mode kotlin-mode
+             lua-mode markdown-mode php-mode racket-mode 
+             rust-mode vala-mode))
+  (eval `(use-package ,m :defer t)))
 
 (setq-default indent-tabs-mode nil)
+(electric-indent-mode 1)
+
+(use-package minimap
+  :config
+  (setq minimap-window-location 'right
+        minimap-width-fraction 0.15
+        minimap-hide-scroll-bar t
+        minimap-update-delay 0.2
+        minimap-minimum-width 40))
 
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-height 30           ;; sets modeline height
         doom-modeline-bar-width 5         ;; sets right bar width
         doom-modeline-icon t              ;; enables the icons
         doom-modeline-time-icon t         ;; enable the time icon
+        doom-modeline-buffer-file-name-style 'file-name ;; the file name style
         doom-modeline-total-line-number t ;; displays the total lines of the file
         doom-modeline-persp-name t        ;; adds perspective name to modeline
         doom-modeline-persp-icon t))      ;; adds folder icon next to persp name
 
 (use-package neotree
+  :defer t
   :config
   (setq neo-smart-open t
         neo-show-hidden-files t
-        neo-window-width 55
+        neo-window-width 45
         neo-window-fixed-size nil
+        ;neo-theme (if (display-graphic-p) 'icons 'arrow)
         inhibit-compacting-font-caches t) 
         ;; truncate long file names in neotree
         (add-hook 'neo-after-create-hook
@@ -479,8 +534,8 @@
                  (setq auto-hscroll-mode nil)))))
 
 (use-package toc-org
-    :commands toc-org-enable
-    :init (add-hook 'org-mode-hook 'toc-org-enable))
+  :commands toc-org-enable
+  :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
@@ -498,9 +553,16 @@
  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
  '(org-level-6 ((t (:inherit outline-5 :height 0.9))))
- '(org-level-7 ((t (:inherit outline-5 :height 0.8)))))
+ '(org-level-7 ((t (:inherit outline-5 :height 0.8))))
+ '(font-lock-comment-face ((t (:slant italic))))
+ '(font-lock-keyword-face ((t (:slant italic))))
+ )
 
 (require 'org-tempo)
+
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
 
 (use-package pdf-tools
   :defer t
@@ -509,7 +571,7 @@
   :bind (:map pdf-view-mode-map
               ("j" . pdf-view-next-line-or-next-page)
               ("k" . pdf-view-previous-line-or-previous-page)
-              ("C-=" . pdf-view-enlarge)
+              ("C-+" . pdf-view-enlarge)
               ("C--" . pdf-view-shrink))
   :init (pdf-loader-install)
   :config (add-to-list 'revert-without-query ".pdf"))
@@ -600,7 +662,12 @@
                   (reusable-frames . visible)
                   (window-height . 0.4))))
 
-(use-package sudo-edit)
+(use-package solaire-mode
+  :config
+  (solaire-global-mode +1))
+
+(use-package sudo-edit
+  :defer t)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
@@ -616,6 +683,18 @@
   (doom-themes-neotree-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+(use-package catppuccin-theme
+  :defer t)
+
+(use-package ef-themes
+ :defer t)
+
+(use-package modus-themes
+ :defer t)
+
+(use-package tldr
+  :defer t)
 
 (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
 (add-to-list 'default-frame-alist '(alpha 90 90))

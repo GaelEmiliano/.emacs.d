@@ -12,12 +12,16 @@
   - [[#all-the-icons][All The Icons]]
   - [[#nerd-icons][Nerd Icons]]
 - [[#backup-and-auto-save][BACKUP AND AUTO-SAVE]]
+- [[#centaur-tabs][CENTAUR TABS]]
 - [[#change-defaults][CHANGE DEFAULTS]]
 - [[#company][COMPANY]]
 - [[#dashboard][DASHBOARD]]
 - [[#diminish][DIMINISH]]
 - [[#dired][DIRED]]
+- [[#drag-stuff][DRAG-STUFF]]
+- [[#ediff][EDIFF]]
 - [[#evil-mode][EVIL MODE]]
+- [[#focus][FOCUS]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
@@ -26,18 +30,14 @@
 - [[#git-programs][GIT PROGRAMS]]
   - [[#git-time-machine][Git Time Machine]]
   - [[#magit][Magit]]
-- [[#graphical-user-interface-settings][GRAPHICAL USER INTERFACE SETTINGS]]
-  - [[#column-number][Column Number]]
-  - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
-  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
-  - [[#display-time-and-battery][Display Time and Battery]]
-  - [[#highlighted-line][Highlighted Line]]
-  - [[#page-break-lines-program][Page-Break-Lines Program]]
+- [[#golden-ratio][GOLDEN RATIO]]
+- [[#highlight-indent-guides][HIGHLIGHT INDENT GUIDES]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
 - [[#ivy-counsel][IVY (COUNSEL)]]
 - [[#language-support][LANGUAGE SUPPORT]]
   - [[#install-languages-modes][Install Languages Modes]]
   - [[#indent-with-spaces][Indent with Spaces]]
+- [[#mini-map][MINI-MAP]]
 - [[#modeline][MODELINE]]
 - [[#neotree][NEOTREE]]
 - [[#org-mode][ORG MODE]]
@@ -47,6 +47,7 @@
   - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
   - [[#org-level-headers][Org Level Headers]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+- [[#page-breaklines][Page BreakLines]]
 - [[#pdfs][PDFs]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
@@ -56,8 +57,14 @@
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
+- [[#solaire-mode][SOLAIRE MODE]]
 - [[#sudo-edit][SUDO EDIT]]
-- [[#theme][THEME]]
+- [[#themes][THEMES]]
+  - [[#doom-themes][Doom Themes]]
+  - [[#catppuccin-theme][Catppuccin Theme]]
+  - [[#ef-themes][Ef Themes]]
+  - [[#modus-themes][Modus Themes]]
+- [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
 - [[#which-key][WHICH-KEY]]
 
@@ -76,15 +83,9 @@ To keep this config.org a reasonable length, I have moved a lot of code to indiv
 
 * ICONS
 ** All The Icons
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
 #+begin_src emacs-lisp
-;(use-package all-the-icons
-;  :ensure t
-;  :if (display-graphic-p))
-
-;; I'm going to use nerd-icons instead...
-;(use-package all-the-icons-dired
-;  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+(use-package all-the-icons
+  :defer t)
 #+end_src
 ** Nerd Icons
 Nerd-icons.el is a library for easily using Nerd Font icons inside Emacs, an alternative to all-the-icons. It works on both GUI and terminal! You only need a Nerd Font installed on your system. It is inspired by all-the-icons, icons-in-terminal, vim-devicons, and nvim-web-devicons.
@@ -106,11 +107,35 @@ By default, Emacs creates automatic backups of files in their original directori
 (setq auto-save-default nil)
 #+end_src
 
+
+* CENTAUR TABS
+Aesthetic, functional and efficient tabs plugin for Emacs with a lot of customization options.
+FIXME VTERM CLOSE
+#+begin_src emacs-lisp
+(use-package centaur-tabs
+  :demand
+  :custom
+  (centaur-tabs-headline-match)
+  (centaur-tabs-style "wave")
+  (centaur-tabs-height 30)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-icon-type 'nerd-icons)
+  (centaur-tabs-set-bar 'left)
+  :config
+  (centaur-tabs-mode t)
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (dired-mode . centaur-tabs-local-mode)
+  (vterm-mode . centaur-tabs-local-mode)
+  :bind
+  ("C-s-<tab>" . centaur-tabs-backward)
+  ("C-<tab>" . centaur-tabs-forward))
+ #+end_src
+
 * CHANGE DEFAULTS
 The following settings are simple modes that are enabled (or disabled) so that Emacs functions more like you would expect a proper editor/IDE to function.
 #+begin_src emacs-lisp
 (delete-selection-mode 1)   ;; You can select text and delete it by typing
-(windmove-default-keybindings)  ;; Move through windows with Shift + arrows 
 (electric-pair-mode 1)      ;; Turns on automatic parens pairing
 (show-paren-mode 1)         ;; Show the parens with colors 
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
@@ -140,6 +165,7 @@ Company is a text completion framework for Emacs. The name stands for “complet
   (global-company-mode t))
 
 (use-package company-box
+  :defer t
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
@@ -149,16 +175,20 @@ Company is a text completion framework for Emacs. The name stands for “complet
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
 #+begin_src emacs-lisp
 (use-package dashboard
-  :ensure t 
+  :defer t
   :init
-  (setq initial-buffer-choice 'dashboard-open)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-banner-logo-title "Evil Emacs User")
-  ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "/home/gael/.emacs.d/images/emacs-dash.png")  ;; use custom image as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
-  (setq dashboard-items '((recents . 5)
+  (setq initial-buffer-choice 'dashboard-open
+        dashboard-display-icons-p t      ;; display icons on both GUI and terminal
+        dashboard-icon-type 'nerd-icons  ;; use `nerd-icons' package
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-banner-logo-title "An extensible, customizable, free text editor\n  Beyond text editing - Emacs does it all."
+     ;   dashboard-startup-banner 'logo ;; use standard emacs logo as banner
+        dashboard-startup-banner "/home/gael/.emacs.d/images/emacs-dash.png"  ;; use custom image as banner
+        dashboard-center-content nil ;; set to 't' for centered content
+        dashboard-set-item-separator t
+        dashboard-item-separator "\f"
+        dashboard-items '((recents . 5)
                           (agenda . 5 )
                           (bookmarks . 3)
                           (projects . 3)
@@ -171,7 +201,7 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
 #+end_src
 
 * DIMINISH
-This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ‘:diminish’ to any use-package block to hide that particular mode in the modeline.
+This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes. With this package installed, you can add ‘:diminish’ to any use-package block to hide that particular mode in the modeline.
 #+begin_src emacs-lisp
 (use-package diminish)
 #+end_src
@@ -180,6 +210,7 @@ This package implements hiding or abbreviation of the modeline displays (lighter
 Directory Editor.
 #+begin_src emacs-lisp
 (use-package dired-open
+  :defer t
   :config
   (setq dired-open-extensions '(("gif" . "sxiv")
                                 ("jpg" . "sxiv")
@@ -195,6 +226,28 @@ Directory Editor.
   (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
   (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
   (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+#+end_src
+
+* DRAG-STUFF
+Drag Stuff is a minor mode for Emacs that makes it possible to drag stuff (words, region, lines) around in Emacs. When ‘drag-stuff-define-keys’ is enabled, then the following keybindings are set: M-up, M-down, M-left, and M-right.
+#+begin_src emacs-lisp
+(use-package drag-stuff
+  :init
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
+#+end_src
+
+* EDIFF
+#+begin_src emacs-lisp
+(setq ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(defun ediff-hook ()
+  (ediff-setup-keymap)
+  (define-key ediff-mode-map "j" 'ediff-next-difference)
+  (define-key ediff-mode-map "k" 'ediff-previous-difference))
+
+(add-hook 'ediff-mode-hook 'ediff-hook)
 #+end_src
 
 * EVIL MODE
@@ -231,12 +284,19 @@ Evil is an extensible Vi/Vim layer for Emacs. Because… let’s face it. The Vi
 (setq org-return-follows-link  t)
 #+end_src
 
+* FOCUS
+Focus, it is a package that dims surrounding text. It works with any theme and can be configured to focus in on different regions like sentences, paragraphs or code-blocks.
+#+begin_src emacs-lisp
+(use-package focus
+  :defer t)
+#+end_src
+
 * FONTS
 Defining the various fonts that Emacs will use.
 ** Setting the Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-  :font "JetBrains Mono"
+  :font "JetBrainsMono Nerd Font"
   :height 110
   :weight 'medium)
 
@@ -246,7 +306,7 @@ Defining the various fonts that Emacs will use.
   :weight 'bold)
 
 (set-face-attribute 'fixed-pitch nil
-  :font "JetBrains Mono"
+  :font "JetBrainsMono Nerd Font"
   :height 110
   :weight 'medium)
 
@@ -261,7 +321,7 @@ Defining the various fonts that Emacs will use.
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 (setq-default line-spacing 0.12)
@@ -279,7 +339,6 @@ You can use the bindings CTRL plus +/- for zooming in/out. You can also use CTRL
 Install luacheck from your Linux distro’s repositories for flycheck to work correctly with lua files. Install python-pylint for flycheck to work with python files. Haskell works with flycheck as long as haskell-ghc or haskell-stack-ghc is installed. For more information on language support for flycheck
 #+begin_src emacs-lisp
 (use-package flycheck
-  :ensure t
   :defer t
   :diminish
   :init (global-flycheck-mode))
@@ -342,7 +401,7 @@ Install luacheck from your Linux distro’s repositories for flycheck to work co
     "e s" '(eshell :which-key "Eshell"))
 
   (ge/leader-keys
-    "f" '(:ignore t :wk "Files")    
+    "f" '(:ignore t :wk "Files/Focus")    
     "f c" '((lambda () (interactive)
               (find-file "~/.emacs.d/config.org")) 
             :wk "Open emacs config.org")
@@ -350,6 +409,7 @@ Install luacheck from your Linux distro’s repositories for flycheck to work co
               (dired "~/.emacs.d/")) 
             :wk "Open user-emacs-directory in dired")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
+    "f f" '(focus-mode :wk "Enable focus")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
     "f i" '((lambda () (interactive)
               (find-file "~/.emacs.d/init.el")) 
@@ -435,16 +495,35 @@ Install luacheck from your Linux distro’s repositories for flycheck to work co
      "m d" '(:ignore t :wk "Date/deadline")
      "m d t" '(org-time-stamp :wk "Org time stamp"))
 
+   (ge/leader-keys
+     "o" '(:ignore t :wk "Open")
+     "o d" '(dashboard-open :wk "Dashboard")
+     "o f" '(make-frame :wk "Open buffer in new frame")
+     "o F" '(select-frame-by-name :wk "Select frame by name"))
+
    ;; projectile-command-map already has a ton of bindings 
    ;; set for us, so no need to specify each individually.
    (ge/leader-keys
      "p" '(projectile-command-map :wk "Projectile"))
 
    (ge/leader-keys
+     "r" '(:ignore t :wk "Golden ratio")
+     "r g" '(golden-ratio :wk "Call golden ratio"))
+
+   (ge/leader-keys
+     "s" '(:ignore t :wk "Search")
+     "s d" '(dictionary-search :wk "Search dictionary")
+     "s m" '(man :wk "Man pages")
+     "s o" '(pdf-occur :wk "Pdf search lines matching STRING")
+     "s t" '(tldr :wk "Lookup TLDR docs for a command")
+     "s w" '(woman :wk "Similar to man but doesn't require man"))
+
+   (ge/leader-keys
      "t" '(:ignore t :wk "Toggle")
      "t e" '(eshell-toggle :wk "Toggle eshell")
      "t f" '(flycheck-mode :wk "Toggle flycheck")
      "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+     "t m" '(minimap-mode :wk "Toggle minimap")
      "t n" '(neotree-toggle :wk "Toggle neotree file viewer")
      "t o" '(org-mode :wk "Toggle org mode")
      "t r" '(rainbow-mode :wk "Toggle rainbow mode")
@@ -468,7 +547,11 @@ Install luacheck from your Linux distro’s repositories for flycheck to work co
      "w H" '(buf-move-left :wk "Buffer move left")
      "w J" '(buf-move-down :wk "Buffer move down")
      "w K" '(buf-move-up :wk "Buffer move up")
-     "w L" '(buf-move-right :wk "Buffer move right"))
+     "w L" '(buf-move-right :wk "Buffer move right")
+     ;; Words
+     "w d" '(downcase-word :wk "Downcase word")
+     "w u" '(upcase-word :wk "Upcase word")
+     "w =" '(count-words :wk "Count words/lines for buffer"))
 )
 #+end_src
 
@@ -489,38 +572,27 @@ Install luacheck from your Linux distro’s repositories for flycheck to work co
 ; (use-package magit)
 #+end_src
 
+* GOLDEN RATIO
+When working with many windows at the same time, each window has a size that is not convenient for editing.
+=golden-ratio= helps on this issue by resizing automatically the windows you are working on to the size specified in the "Golden Ratio". The window that has the main focus will have the perfect size for editing, while the ones that are not being actively edited will be re-sized to a smaller size that doesn't get in the way, but at the same time will be readable enough to know it's content.
+#+begin_src emacs-lisp
+(use-package golden-ratio
+  :defer t)
+#+end_src
 
-* GRAPHICAL USER INTERFACE SETTINGS
-** Column Number
+* HIGHLIGHT INDENT GUIDES
+This minor mode highlights indentation levels via =font-lock=. Indent widths are dynamically discovered, which means this correctly highlights in any mode, regardless of indent width, even in languages with non-uniform indentation such as Haskell. By default, this mode also inspects your theme dynamically, and automatically chooses appropriate colors for highlighting. This mode works properly around hard tabs and mixed indentation, and it behaves well in large buffers.
 #+begin_src emacs-lisp
-(setq column-number-mode t)  ;; Enable showing the column number 
-#+end_src
-** Disable Menubar, Toolbars and Scrollbars
-#+begin_src emacs-lisp
-(menu-bar-mode -1)    ;; Disable the menu bar 
-(tool-bar-mode -1)    ;; Disable the tool bar
-(scroll-bar-mode -1)  ;; Disable the scroll bar 
-#+end_src
-** Display Line Numbers and Truncated Lines
-#+begin_src emacs-lisp
-(global-display-line-numbers-mode 1) ;; Display line numbers
-(global-visual-line-mode t) ;; Enable truncated lines
-#+end_src
-** Display Time and Battery
-#+begin_src emacs-lisp
-(display-time-mode 1)     ;; Displays the time
-(display-battery-mode 1)  ;; Displays the battery
-#+end_src
-** Highlighted Line
-#+begin_src emacs-lisp
-(global-hl-line-mode 1) ;; Enable showing a hl line
-#+end_src
-** Page-Break-Lines Program
-This Emacs library provides a global mode which displays ugly form feed characters as tidy horizontal rules.
-#+begin_src emacs-lisp
-(use-package page-break-lines
-  :config
-  (global-page-break-lines-mode))
+(use-package highlight-indent-guides
+  :diminish
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :custom
+  ;; Use a vertical bar character
+  (highlight-indent-guides-method 'character)
+  ;; Highlight the current level with greater intesity
+  (highlight-indent-guides-responsive 'top)
+  ;; Adjust the delay to avoid performance penalties
+  (highlight-indent-guides-delay 0.1))
 #+end_src
 
 * HIGHLIGHT TODO
@@ -565,20 +637,16 @@ Adding highlights to TODO and related words.
   :config
   (ivy-mode))
 
-;; Using all-the-icons
-;(use-package all-the-icons-ivy-rich
-;  :ensure t
-;  :init (all-the-icons-ivy-rich-mode 1))
-
 ;; Using nerd-icons
 (use-package nerd-icons-ivy-rich
-  :ensure t
+  :defer t
   :init
   (nerd-icons-ivy-rich-mode 1)
   :custom
   (setq nerd-icons-ivy-rich-icon-size 5.0))
 
 (use-package ivy-rich
+  :defer t
   :after ivy
   :ensure t
   :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
@@ -595,35 +663,40 @@ Adding highlights to TODO and related words.
 Emacs has built-in programming language modes for Lisp, Scheme, DSSSL, Ada, ASM, AWK, C, C++, Fortran, Icon, IDL (CORBA), IDLWAVE, Java, JavaScript, M4, Makefiles, Metafont, Modula2, Object Pascal, Objective-C, Octave, Pascal, Perl, Pike, PostScript, Prolog, Python, Ruby, Simula, SQL, Tcl, Verilog, and VHDL. Other languages will require you to install additional modes.
 ** Install Languages Modes
 #+begin_src emacs-lisp
-(use-package csharp-mode)
-(use-package dart-mode)
-;;(use-package elixir-mode)
-;;(use-package go-mode)
-(use-package haskell-mode)
-(use-package kotlin-mode)
-(use-package lua-mode)
-(use-package markdown-mode)
-(use-package php-mode)
-(use-package racket-mode)
-(use-package rust-mode)
-(use-package vala-mode)
+(dolist (m '(csharp-mode dart-mode haskell-mode kotlin-mode
+             lua-mode markdown-mode php-mode racket-mode 
+             rust-mode vala-mode))
+  (eval `(use-package ,m :defer t)))
 #+end_src
 ** Indent with Spaces
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
+(electric-indent-mode 1)
+#+end_src
+
+* MINI-MAP
+FIXME
+#+begin_src emacs-lisp
+(use-package minimap
+  :config
+  (setq minimap-window-location 'right
+        minimap-width-fraction 0.15
+        minimap-hide-scroll-bar t
+        minimap-update-delay 0.2
+        minimap-minimum-width 40))
 #+end_src
 
 * MODELINE
 The modeline is the bottom status bar that appears in Emacs windows. While you can create your own custom modeline, why go to the trouble when Doom Emacs already has a nice modeline package available. For more information on what is available to configure in the Doom modeline, check out: Doom Modeline
 #+begin_src emacs-lisp
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-height 30           ;; sets modeline height
         doom-modeline-bar-width 5         ;; sets right bar width
         doom-modeline-icon t              ;; enables the icons
         doom-modeline-time-icon t         ;; enable the time icon
+        doom-modeline-buffer-file-name-style 'file-name ;; the file name style
         doom-modeline-total-line-number t ;; displays the total lines of the file
         doom-modeline-persp-name t        ;; adds perspective name to modeline
         doom-modeline-persp-icon t))      ;; adds folder icon next to persp name
@@ -639,11 +712,13 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 
 #+begin_src emacs-lisp
 (use-package neotree
+  :defer t
   :config
   (setq neo-smart-open t
         neo-show-hidden-files t
-        neo-window-width 55
+        neo-window-width 45
         neo-window-fixed-size nil
+        ;neo-theme (if (display-graphic-p) 'icons 'arrow)
         inhibit-compacting-font-caches t) 
         ;; truncate long file names in neotree
         (add-hook 'neo-after-create-hook
@@ -659,8 +734,8 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 ** Enabling Table of Contents
 #+begin_src emacs-lisp
 (use-package toc-org
-    :commands toc-org-enable
-    :init (add-hook 'org-mode-hook 'toc-org-enable))
+  :commands toc-org-enable
+  :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
 ** Enabling Org Bullets
 Org-bullets gives us attractive bullets rather than asterisks.
@@ -689,7 +764,10 @@ Removes "Ind" from showing in the modeline.
  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
  '(org-level-6 ((t (:inherit outline-5 :height 0.9))))
- '(org-level-7 ((t (:inherit outline-5 :height 0.8)))))
+ '(org-level-7 ((t (:inherit outline-5 :height 0.8))))
+ '(font-lock-comment-face ((t (:slant italic))))
+ '(font-lock-keyword-face ((t (:slant italic))))
+ )
 #+end_src
 ** Source Code Block Tag Expansion
 Org-tempo is not a separate package but a module within org that can be enabled.  Org-tempo allows for ‘<s’ followed by TAB to expand to a begin_src tag. Other expansions available include:
@@ -711,6 +789,14 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (require 'org-tempo)
 #+end_src
 
+* Page BreakLines
+This Emacs library provides a global mode which displays ugly form feed characters as tidy horizontal rules.
+#+begin_src emacs-lisp
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
+#+end_src
+
 * PDFs
 pdf-tools is a replacement of DocView for viewing PDF files inside Emacs. It uses the poppler library, which also means that ‘pdf-tools’ can by used to modify PDFs. I use to disable ‘display-line-numbers-mode’ in ‘pdf-view-mode’ because line numbers crash it.
 #+begin_src emacs-lisp
@@ -721,7 +807,7 @@ pdf-tools is a replacement of DocView for viewing PDF files inside Emacs. It use
   :bind (:map pdf-view-mode-map
               ("j" . pdf-view-next-line-or-next-page)
               ("k" . pdf-view-previous-line-or-previous-page)
-              ("C-=" . pdf-view-enlarge)
+              ("C-+" . pdf-view-enlarge)
               ("C--" . pdf-view-shrink))
   :init (pdf-loader-install)
   :config (add-to-list 'revert-without-query ".pdf"))
@@ -765,6 +851,7 @@ Projectile is a project interaction library for Emacs.
 #+end_src
 
 * RAINBOW DELIMITERS
+Adding rainbow coloring to parentheses.
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -839,17 +926,29 @@ vterm-toggle toggles between the vterm buffer and whatever buffer you are editin
                   (window-height . 0.4))))
 #+end_src
 
+* SOLAIRE MODE
+=solaire-mode= is an aesthetic plugin designed to visually distinguish "real" buffers (i.e. file-visiting code buffers where you do most of your work) from "unreal" buffers (like popups, sidebars, log buffers, terminals, etc) by giving the latter a slightly different *often darker* background.
+#+begin_src emacs-lisp
+(use-package solaire-mode
+  :config
+  (solaire-global-mode +1))
+#+end_src
+
 * SUDO EDIT
 sudo-edit gives us the ability to open files with sudo privileges or switch over to editing with sudo privileges if we initially opened the file without such privileges.
 #+begin_src emacs-lisp
-(use-package sudo-edit)
+(use-package sudo-edit
+  :defer t)
 #+end_src
 
-* THEME
-
+* THEMES
+Adding custom/manual themes.
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-
+#+end_src
+The famous *Doom Themes*.
+** Doom Themes
+#+begin_src emacs-lisp
 (use-package doom-themes
   :config
   ;; Global settings (defaults)
@@ -862,6 +961,30 @@ sudo-edit gives us the ability to open files with sudo privileges or switch over
   (doom-themes-neotree-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+#+end_src
+One of my fav.
+** Catppuccin Theme
+#+begin_src emacs-lisp
+(use-package catppuccin-theme
+  :defer t)
+#+end_src
+Good themes.
+** Ef Themes
+#+begin_src emacs-lisp
+(use-package ef-themes
+ :defer t)
+#+end_src
+Good themes.
+** Modus Themes
+#+begin_src emacs-lisp
+(use-package modus-themes
+ :defer t)
+#+end_src
+
+* TLDR
+#+begin_src emacs-lisp
+(use-package tldr
+  :defer t)
 #+end_src
 
 * TRANSPARENCY

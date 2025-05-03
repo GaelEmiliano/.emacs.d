@@ -1,27 +1,54 @@
 ls -la
 ls -la
 pwd
-*ls
-*ls -la
 ls -la
 ls
 ls -la
-*ls
 *ls -al
-*ls -la
 *cat early-init.el
-ls 
-*ls
 *clear
-clear 
 *cmake --version
 *sudo apt install libtool-bin
 *ps 
 ls -la
-*ls -la
 clear
 ls -la
-*ls -la
 *ps
-clear 
 ls 
+*mkdir Projects
+cd Projects/
+mkdir proyecto2
+cd proyecto2/
+mkdir -p src/main/java/mx/unam/ciencias/edd/proyecto2
+cd src/main/java/mx/unam/ciencias/edd/proyecto2/
+*touch Proyecto2.java
+cd ..
+cd ../../..
+cd ../..//..
+cd ..
+touch .gitignore
+*ls 
+*ls -la 
+touch prueba
+*clear 
+*ls
+*ls 
+cd ../../../..
+cd ../../..
+cd ../..
+cd proyecto2/
+*ls
+*mvn compile
+*mvn install 
+java -jar/proyecto2.jar
+*clear 
+clear 
+*ls -la
+*ls
+ls -la
+*ls -la
+*ls 
+exit
+*ls -la
+clear 
+exit
